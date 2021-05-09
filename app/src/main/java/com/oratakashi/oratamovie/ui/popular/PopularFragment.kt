@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.jakewharton.rxbinding3.widget.TextViewTextChangeEvent
 import com.jakewharton.rxbinding3.widget.textChangeEvents
 import com.oratakashi.oratamovie.R
+import com.oratakashi.oratamovie.databinding.AdapterPopulerBinding
 import com.oratakashi.oratamovie.databinding.FragmentPopularBinding
 import com.oratakashi.oratamovie.ui.detail.DetailActivity
+import com.oratakashi.viewbinding.core.ViewHolder
 import com.oratakashi.viewbinding.core.tools.gone
 import com.oratakashi.viewbinding.core.tools.startActivity
 import com.oratakashi.viewbinding.core.tools.visible
@@ -25,10 +27,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PopularFragment : Fragment() {
+class PopularFragment : Fragment(), PopularInterface {
 
     private val adapter: PopularAdapter by lazy {
-        PopularAdapter { data ->
+        PopularAdapter(this) { data ->
             startActivity(DetailActivity::class.java) {
                 it.putExtra("data", data)
             }
@@ -95,8 +97,13 @@ class PopularFragment : Fragment() {
                     }
                 }
             }
+            viewModel.detail.observe(viewLifecycleOwner, adapter::setDetail)
             viewModel.data.observe(viewLifecycleOwner, adapter::submitList)
         }
+    }
+
+    override fun getDetail(id: String, holder: ViewHolder<AdapterPopulerBinding>) {
+        viewModel.getDetail(id, holder)
     }
 
     override fun onCreateView(

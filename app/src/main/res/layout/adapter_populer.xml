@@ -16,6 +16,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_genre"
+        android:ellipsize="end"
+        android:fontFamily="@font/bold"
+        android:maxLines="1"
+        android:padding="@dimen/padding_5"
+        android:text="@string/foo"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_11"
+        android:layout_marginBottom="@dimen/margin_24"
+        android:layout_marginStart="@dimen/margin_10"
+        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +54,8 @@
         android:text="@string/foo"
         android:fontFamily="@font/regular"
         android:textColor="@color/grey"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />

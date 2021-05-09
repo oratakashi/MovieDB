@@ -8,12 +8,15 @@ import coil.transform.RoundedCornersTransformation
 import com.oratakashi.oratamovie.BuildConfig
 import com.oratakashi.oratamovie.R
 import com.oratakashi.oratamovie.databinding.AdapterFavoriteBinding
+import com.oratakashi.oratamovie.domain.`object`.FavoriteDetail
+import com.oratakashi.oratamovie.domain.`object`.PopularDetail
 import com.oratakashi.oratamovie.domain.model.fav.Favorite
 import com.oratakashi.viewbinding.core.ViewHolder
 import com.oratakashi.viewbinding.core.tools.onClick
 import com.oratakashi.viewbinding.core.viewBinding
 
 class FavoriteAdapter(
+    private val parent: FavoriteInterface,
     private val onDetail : (Favorite)   -> Unit,
     private val onDelete : (Favorite)   -> Unit
 ) :
@@ -25,6 +28,7 @@ class FavoriteAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder<AdapterFavoriteBinding>, position: Int) {
         with(holder.binding) {
+            parent.getDetail(getItem(position)?.id!!, holder)
             ivImage.load(BuildConfig.IMAGE_URL + getItem(position)?.poster_path) {
                 transformations(RoundedCornersTransformation(20f))
                 crossfade(true)
@@ -41,6 +45,23 @@ class FavoriteAdapter(
 
             root.onClick { onDetail.invoke(getItem(position)!!) }
             ivFav.onClick { onDelete.invoke(getItem(position)!!) }
+        }
+    }
+
+    fun setDetail(data: FavoriteDetail) {
+        with(data.holder.binding){
+            if(data.data.detail.genres != null)
+            if(data.data.detail.genres.isNotEmpty()){
+                val builder = StringBuilder()
+                data.data.detail.genres.forEachIndexed { index, genre ->
+                    if(index == data.data.detail.genres.size -1){
+                        builder.append(genre.name)
+                    }else{
+                        builder.append("${genre.name}, ")
+                    }
+                }
+                tvGenre.text = builder.toString()
+            }
         }
     }
 

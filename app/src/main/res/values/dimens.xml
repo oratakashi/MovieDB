@@ -125,4 +125,5 @@
     <dimen name="margin_220">220dp</dimen>
     <dimen name="radius_5">5dp</dimen>
     <dimen name="margin_32">32dp</dimen>
+    <dimen name="font_11">11sp</dimen>
 </resources>
