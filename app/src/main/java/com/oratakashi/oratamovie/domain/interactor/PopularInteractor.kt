@@ -6,6 +6,7 @@ import androidx.paging.PagedList
 import com.oratakashi.oratamovie.data.model.fav.DataFav
 import com.oratakashi.oratamovie.di.wire.Popular
 import com.oratakashi.oratamovie.domain.`object`.ResponseDetail
+import com.oratakashi.oratamovie.domain.`object`.ResponseGenre
 import com.oratakashi.oratamovie.domain.`object`.ResponseHome
 import com.oratakashi.oratamovie.domain.model.discover.Discover
 import com.oratakashi.oratamovie.domain.model.fav.Favorite
@@ -57,6 +58,10 @@ class PopularInteractor @Inject constructor(
     }
 
     override fun getFavoriteSearchPaging(keyword: String): LiveData<PagedList<Favorite>> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getGenre(): Observable<ResponseGenre> {
         throw UnsupportedOperationException()
     }
 }

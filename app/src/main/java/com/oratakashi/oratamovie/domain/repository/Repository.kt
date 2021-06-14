@@ -6,7 +6,9 @@ import androidx.paging.PagedList
 import com.oratakashi.oratamovie.data.model.fav.DataFav
 import com.oratakashi.oratamovie.domain.model.cast.Cast
 import com.oratakashi.oratamovie.domain.model.detail.Detail
+import com.oratakashi.oratamovie.domain.model.detail.Genre
 import com.oratakashi.oratamovie.domain.model.discover.Discover
+import com.oratakashi.oratamovie.domain.model.discover.DiscoverDetail
 import com.oratakashi.oratamovie.domain.model.fav.Favorite
 import com.oratakashi.oratamovie.ui.popular.PopularState
 import io.reactivex.Observable
@@ -14,6 +16,8 @@ import io.reactivex.Single
 
 interface Repository {
     fun getDiscover(): Observable<List<Discover>>
+    fun getDiscoverDetail(): Observable<DiscoverDetail>
+    fun getGenre(): Observable<List<Genre>>
     fun getDiscoverYear(year: Int): Observable<List<Discover>>
     fun getDetail(id: Int): Observable<Detail>
     fun getCast(id: Int): Observable<List<Cast>>

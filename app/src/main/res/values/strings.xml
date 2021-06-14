@@ -23,4 +23,8 @@
     <string name="title_watch_trailer">Watch Trailer</string>
     <string name="title_cast">Cast</string>
     <string name="title_unknown">Unknown</string>
+    <string name="title_genre">Genre</string>
+    <string name="title_id">ID</string>
+    <string name="title_title">Title</string>
+    <string name="title_release_date">Release Date</string>
 </resources>

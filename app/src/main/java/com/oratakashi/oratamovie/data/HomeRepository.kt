@@ -7,7 +7,9 @@ import com.oratakashi.oratamovie.data.model.fav.DataFav
 import com.oratakashi.oratamovie.data.network.HomeEndpoint
 import com.oratakashi.oratamovie.domain.model.cast.Cast
 import com.oratakashi.oratamovie.domain.model.detail.Detail
+import com.oratakashi.oratamovie.domain.model.detail.Genre
 import com.oratakashi.oratamovie.domain.model.discover.Discover
+import com.oratakashi.oratamovie.domain.model.discover.DiscoverDetail
 import com.oratakashi.oratamovie.domain.model.fav.Favorite
 import com.oratakashi.oratamovie.domain.repository.Repository
 import com.oratakashi.oratamovie.ui.popular.PopularState
@@ -85,6 +87,14 @@ class HomeRepository @Inject constructor(
     }
 
     override fun getFavoriteSearchPaging(keyword: String): LiveData<PagedList<Favorite>> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getGenre(): Observable<List<Genre>> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getDiscoverDetail(): Observable<DiscoverDetail> {
         throw UnsupportedOperationException()
     }
 }

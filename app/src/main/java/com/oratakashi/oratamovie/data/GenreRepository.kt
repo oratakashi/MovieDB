@@ -2,10 +2,9 @@ package com.oratakashi.oratamovie.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.oratakashi.oratamovie.data.db.RoomDB
 import com.oratakashi.oratamovie.data.model.fav.DataFav
+import com.oratakashi.oratamovie.data.network.GenreEndpoint
 import com.oratakashi.oratamovie.domain.model.cast.Cast
 import com.oratakashi.oratamovie.domain.model.detail.Detail
 import com.oratakashi.oratamovie.domain.model.detail.Genre
@@ -18,44 +17,37 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class FavoriteRepository @Inject constructor(
-    private val db: RoomDB
+class GenreRepository @Inject constructor(
+    private val endpoint: GenreEndpoint
 ) : Repository {
 
-    override fun getFavoritePaging(): LiveData<PagedList<Favorite>> {
-        return LivePagedListBuilder(
-            db.fav().getAll().map { data ->
-                Favorite(
-                    data.id,
-                    data.backdrop_path,
-                    data.overview,
-                    data.poster_path,
-                    data.title,
-                    data.release_date,
-                )
-            },
-            10
-        ).build()
+    override fun getDiscoverDetail(): Observable<DiscoverDetail> {
+        return endpoint.getDiscover().map {
+            DiscoverDetail(
+                it.data?.map { data ->
+                    Discover(
+                        data.backdrop_path,
+                        data.id.toString(),
+                        data.overview,
+                        data.poster_path,
+                        data.title,
+                        data.release_date
+                    )
+                }!!,
+                it.total_pages ?: 0
+            )
+        }
     }
 
-    override fun getFavoriteSearchPaging(keyword: String): LiveData<PagedList<Favorite>> {
-        return LivePagedListBuilder(
-            db.fav().search("%${keyword}%").map { data ->
-                Favorite(
+    override fun getGenre(): Observable<List<Genre>> {
+        return endpoint.getGenre().map {
+            it.data.map { data ->
+                Genre(
                     data.id,
-                    data.backdrop_path,
-                    data.overview,
-                    data.poster_path,
-                    data.title,
-                    data.release_date
+                    data.name
                 )
-            },
-            10
-        ).build()
-    }
-
-    override fun deleteFav(data: DataFav): Single<Boolean> {
-        return db.fav().delete(data).map { true }
+            }
+        }
     }
 
     override fun getDiscover(): Observable<List<Discover>> {
@@ -82,6 +74,14 @@ class FavoriteRepository @Inject constructor(
         throw UnsupportedOperationException()
     }
 
+    override fun getFavoritePaging(): LiveData<PagedList<Favorite>> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getFavoriteSearchPaging(keyword: String): LiveData<PagedList<Favorite>> {
+        throw UnsupportedOperationException()
+    }
+
     override fun clearCachePaging(): Single<Int> {
         throw UnsupportedOperationException()
     }
@@ -94,11 +94,7 @@ class FavoriteRepository @Inject constructor(
         throw UnsupportedOperationException()
     }
 
-    override fun getGenre(): Observable<List<Genre>> {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getDiscoverDetail(): Observable<DiscoverDetail> {
+    override fun deleteFav(data: DataFav): Single<Boolean> {
         throw UnsupportedOperationException()
     }
 }

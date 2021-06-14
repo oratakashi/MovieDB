@@ -1,13 +1,7 @@
 package com.oratakashi.oratamovie.di.module
 
-import com.oratakashi.oratamovie.di.wire.Detail
-import com.oratakashi.oratamovie.di.wire.Fav
-import com.oratakashi.oratamovie.di.wire.Home
-import com.oratakashi.oratamovie.di.wire.Popular
-import com.oratakashi.oratamovie.domain.interactor.DetailInteractor
-import com.oratakashi.oratamovie.domain.interactor.FavoriteInteractor
-import com.oratakashi.oratamovie.domain.interactor.HomeInteractor
-import com.oratakashi.oratamovie.domain.interactor.PopularInteractor
+import com.oratakashi.oratamovie.di.wire.*
+import com.oratakashi.oratamovie.domain.interactor.*
 import com.oratakashi.oratamovie.domain.usecase.UseCase
 import dagger.Binds
 import dagger.Module
@@ -39,5 +33,11 @@ abstract class BindingUsecaseModule {
     @Binds
     abstract fun bindingFavorite(
         useCase: FavoriteInteractor
+    ): UseCase
+
+    @Genre
+    @Binds
+    abstract fun bindingGenre(
+        useCase: GenreInteractor
     ): UseCase
 }

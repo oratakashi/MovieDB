@@ -1,11 +1,9 @@
 package com.oratakashi.oratamovie.di.module
 
-import com.oratakashi.oratamovie.data.DetailRepository
-import com.oratakashi.oratamovie.data.FavoriteRepository
-import com.oratakashi.oratamovie.data.HomeRepository
-import com.oratakashi.oratamovie.data.PopularRepository
+import com.oratakashi.oratamovie.data.*
 import com.oratakashi.oratamovie.data.db.RoomDB
 import com.oratakashi.oratamovie.data.network.DetailEndpoint
+import com.oratakashi.oratamovie.data.network.GenreEndpoint
 import com.oratakashi.oratamovie.data.network.HomeEndpoint
 import com.oratakashi.oratamovie.utils.PagingBoundary
 import dagger.Module
@@ -42,4 +40,10 @@ class RepositoryModule {
     fun provideFavoriteRepository(
         db: RoomDB
     ): FavoriteRepository = FavoriteRepository(db)
+
+    @Provides
+    @Singleton
+    fun provideGenreRepository(
+        endpoint: GenreEndpoint
+    ): GenreRepository = GenreRepository(endpoint)
 }

@@ -6,6 +6,7 @@ import androidx.paging.PagedList
 import com.oratakashi.oratamovie.data.model.fav.DataFav
 import com.oratakashi.oratamovie.di.wire.Fav
 import com.oratakashi.oratamovie.domain.`object`.ResponseDetail
+import com.oratakashi.oratamovie.domain.`object`.ResponseGenre
 import com.oratakashi.oratamovie.domain.`object`.ResponseHome
 import com.oratakashi.oratamovie.domain.model.discover.Discover
 import com.oratakashi.oratamovie.domain.model.fav.Favorite
@@ -66,6 +67,10 @@ class FavoriteInteractor @Inject constructor(
     }
 
     override fun getFavById(id: String): Single<List<Favorite>> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getGenre(): Observable<ResponseGenre> {
         throw UnsupportedOperationException()
     }
 }

@@ -1,11 +1,9 @@
 package com.oratakashi.oratamovie.domain.interactor
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
-import com.oratakashi.oratamovie.data.model.fav.DataFav
-import com.oratakashi.oratamovie.di.wire.Home
+import com.oratakashi.oratamovie.di.wire.Genre
 import com.oratakashi.oratamovie.domain.`object`.ResponseDetail
 import com.oratakashi.oratamovie.domain.`object`.ResponseGenre
 import com.oratakashi.oratamovie.domain.`object`.ResponseHome
@@ -19,32 +17,29 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class HomeInteractor @Inject constructor(
-    @Home private val repository: Repository
+class GenreInteractor @Inject constructor(
+    @Genre private val repository: Repository
 ) : UseCase {
     override fun getHome(year: Int): Observable<ResponseHome> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getDetail(id: Int): Observable<ResponseDetail> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getGenre(): Observable<ResponseGenre> {
         return Observable.zip(
-            repository.getDiscover().subscribeOn(Schedulers.io()).map {
-                it.subList(0, 5)
-            },
-            repository.getDiscover().subscribeOn(Schedulers.io()),
-            repository.getDiscoverYear(year).subscribeOn(Schedulers.io()),
-            { banner, popular, comingsoon ->
-                ResponseHome(banner, popular, comingsoon)
+            repository.getGenre().subscribeOn(Schedulers.io()),
+            repository.getDiscoverDetail().subscribeOn(Schedulers.io()),
+            { genre, discover ->
+                ResponseGenre(
+                    genre,
+                    discover.data,
+                    discover.total
+                )
             }
         )
-    }
-
-    override fun addFav(data: Favorite): Single<Boolean> {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getFavById(id: String): Single<List<Favorite>> {
-        throw UnsupportedOperationException()
-    }
-
-    override fun deleteFav(data: Favorite): Single<Boolean> {
-        throw UnsupportedOperationException()
     }
 
     override fun getPopular(callback: MutableLiveData<PopularState>): LiveData<PagedList<Discover>> {
@@ -59,7 +54,15 @@ class HomeInteractor @Inject constructor(
         throw UnsupportedOperationException()
     }
 
-    override fun getDetail(id: Int): Observable<ResponseDetail> {
+    override fun addFav(data: Favorite): Single<Boolean> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getFavById(id: String): Single<List<Favorite>> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun deleteFav(data: Favorite): Single<Boolean> {
         throw UnsupportedOperationException()
     }
 
@@ -68,10 +71,6 @@ class HomeInteractor @Inject constructor(
     }
 
     override fun getFavoriteSearchPaging(keyword: String): LiveData<PagedList<Favorite>> {
-        throw UnsupportedOperationException()
-    }
-
-    override fun getGenre(): Observable<ResponseGenre> {
         throw UnsupportedOperationException()
     }
 }

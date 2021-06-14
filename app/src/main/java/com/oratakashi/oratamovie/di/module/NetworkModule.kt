@@ -5,6 +5,7 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.oratakashi.oratamovie.BuildConfig
 import com.oratakashi.oratamovie.core.Config
 import com.oratakashi.oratamovie.data.network.DetailEndpoint
+import com.oratakashi.oratamovie.data.network.GenreEndpoint
 import com.oratakashi.oratamovie.data.network.HomeEndpoint
 import com.oratakashi.oratamovie.data.network.PopularEndpoint
 import dagger.Module
@@ -100,6 +101,12 @@ class NetworkModule {
     @Singleton
     fun providesDetailEndPoint(retrofit: Retrofit): DetailEndpoint {
         return retrofit.create(DetailEndpoint::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providesGenreEndPoint(retrofit: Retrofit): GenreEndpoint {
+        return retrofit.create(GenreEndpoint::class.java)
     }
 
     @Provides

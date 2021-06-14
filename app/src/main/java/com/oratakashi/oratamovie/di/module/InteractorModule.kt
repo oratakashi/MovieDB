@@ -1,13 +1,7 @@
 package com.oratakashi.oratamovie.di.module
 
-import com.oratakashi.oratamovie.di.wire.Detail
-import com.oratakashi.oratamovie.di.wire.Fav
-import com.oratakashi.oratamovie.di.wire.Home
-import com.oratakashi.oratamovie.di.wire.Popular
-import com.oratakashi.oratamovie.domain.interactor.DetailInteractor
-import com.oratakashi.oratamovie.domain.interactor.FavoriteInteractor
-import com.oratakashi.oratamovie.domain.interactor.HomeInteractor
-import com.oratakashi.oratamovie.domain.interactor.PopularInteractor
+import com.oratakashi.oratamovie.di.wire.*
+import com.oratakashi.oratamovie.domain.interactor.*
 import com.oratakashi.oratamovie.domain.repository.Repository
 import dagger.Module
 import dagger.Provides
@@ -41,4 +35,10 @@ class InteractorModule {
     fun provideFavoriteInteractor(
         @Fav repository: Repository
     ): FavoriteInteractor = FavoriteInteractor(repository)
+
+    @Provides
+    @Singleton
+    fun provideGenreInteractor(
+        @Genre repository: Repository
+    ): GenreInteractor = GenreInteractor(repository)
 }

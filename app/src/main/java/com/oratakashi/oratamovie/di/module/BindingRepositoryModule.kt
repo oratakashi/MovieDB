@@ -1,13 +1,7 @@
 package com.oratakashi.oratamovie.di.module
 
-import com.oratakashi.oratamovie.data.DetailRepository
-import com.oratakashi.oratamovie.data.FavoriteRepository
-import com.oratakashi.oratamovie.data.HomeRepository
-import com.oratakashi.oratamovie.data.PopularRepository
-import com.oratakashi.oratamovie.di.wire.Detail
-import com.oratakashi.oratamovie.di.wire.Fav
-import com.oratakashi.oratamovie.di.wire.Home
-import com.oratakashi.oratamovie.di.wire.Popular
+import com.oratakashi.oratamovie.data.*
+import com.oratakashi.oratamovie.di.wire.*
 import com.oratakashi.oratamovie.domain.repository.Repository
 import dagger.Binds
 import dagger.Module
@@ -39,5 +33,11 @@ abstract class BindingRepositoryModule {
     @Binds
     abstract fun bindingFav(
         repository: FavoriteRepository
+    ): Repository
+
+    @Genre
+    @Binds
+    abstract fun bindingGenre(
+        repository: GenreRepository
     ): Repository
 }
